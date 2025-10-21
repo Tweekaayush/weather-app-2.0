@@ -11,7 +11,7 @@ const CurrentWeather = () => {
   } = useSelector((state) => state.weather);
   return (
     <div className="card">
-      <h1 className="heading mb-4">Now</h1>
+      <h1 className="heading-1">Now</h1>
       <div className="flex mb-4">
         <h2 className="text-6xl text-gray-700 dark:text-gray-200">
           28.07°<sup>c</sup>

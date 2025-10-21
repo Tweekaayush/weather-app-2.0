@@ -14,9 +14,18 @@
   .container {
     @apply px-4 max-w-full w-full;
   }
-  .heading {
-    @apply text-xl font-bold tracking-wider text-gray-700 dark:text-gray-300;
+  .heading-1 {
+    @apply text-xl font-bold tracking-wider mb-4 text-gray-700 dark:text-gray-300;
   }
+  
+  .heading-2 {
+    @apply text-gray-800 dark:text-gray-200 tracking-wider text-sm capitalize;
+  }
+
+  .heading-3{
+    @apply text-2xl font-semibold text-gray-700 dark:text-gray-300;
+  }
+
   .card {
     @apply border-2 bg-white dark:bg-white/[0.03] border-gray-200 dark:border-gray-800 p-4 rounded-lg ;
   }
