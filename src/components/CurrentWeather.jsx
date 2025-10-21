@@ -12,12 +12,12 @@ const CurrentWeather = () => {
   return (
     <div className="card">
       <h1 className="heading-1">Now</h1>
-      <div className="flex mb-4">
+      <div className="flex mb-4 justify-between">
         <h2 className="text-6xl text-gray-700 dark:text-gray-200">
           28.07°<sup>c</sup>
         </h2>
         <div className="flex items-center justify-center">
-          <img src="" alt="" />
+          <img src="assets/images/weather_icons/01n.png" alt="smoke" className="w-16 h-16 object-contain" />
         </div>
       </div>
       <h3 className="pb-4 mb-5 text-gray-600 dark:text-gray-400 border-b border-gray-400 dark:border-gray-600">smoke</h3>
