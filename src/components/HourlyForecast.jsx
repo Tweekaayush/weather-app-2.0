@@ -1,9 +1,11 @@
-import React from 'react'
+import React from "react";
 
 const HourlyForecast = () => {
   return (
-    <div>HourlyForecast</div>
-  )
-}
+    <div className="card">
+      <h1 className="heading">Today at</h1>
+    </div>
+  );
+};
 
-export default HourlyForecast
+export default HourlyForecast;
