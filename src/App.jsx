@@ -8,7 +8,7 @@ import HourlyForecast from "./components/HourlyForecast";
 const App = () => {
   return (
     <Layout>
-      <div className="container py-4 min-h-screen grid grid-cols-12 gap-4 dark:bg-transparent bg-gray-100\">
+      <div className="container py-4 grid grid-cols-12 gap-4 dark:bg-transparent bg-gray-100">
         <div className='col-span-12 lg:col-span-3'>
           <CurrentWeather />
         </div>
