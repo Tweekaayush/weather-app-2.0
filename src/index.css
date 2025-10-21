@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme{
+
+}
+
+@layer base{
+
+}
+
+@layer utilities{
+  .card{
+    @apply shadow-lg bg-white dark:bg-gray-800;
+  }
+}
