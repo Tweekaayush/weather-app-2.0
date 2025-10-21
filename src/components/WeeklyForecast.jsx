@@ -7,28 +7,28 @@ const WeeklyForecast = () => {
       <ul className="flex flex-col">
         <li className="flex justify-between gap-4 hover:bg-gray-100 dark:hover:bg-gray-800 p-2 cursor-pointer">
           <img src="" alt="" />
-          <p>28.17&deg;</p>
-          <p>Wednesday 22, Oct</p>
+          <p className="text-sm tracking-wider text-gray-700 dark:text-gray-300">28.17&deg;</p>
+          <p className="text-sm tracking-wider text-gray-700 dark:text-gray-300">Wednesday 22, Oct</p>
         </li>
         <li className="flex justify-between gap-4 hover:bg-gray-100 dark:hover:bg-gray-800 p-2 cursor-pointer">
           <img src="" alt="" />
-          <p>28.17&deg;</p>
-          <p>Wednesday 22, Oct</p>
+          <p className="text-sm tracking-wider text-gray-700 dark:text-gray-300"> 28.17&deg;</p>
+          <p className="text-sm tracking-wider text-gray-700 dark:text-gray-300">Wednesday 22, Oct</p>
         </li>
         <li className="flex justify-between gap-4 hover:bg-gray-100 dark:hover:bg-gray-800 p-2 cursor-pointer">
           <img src="" alt="" />
-          <p>28.17&deg;</p>
-          <p>Wednesday 22, Oct</p>
+          <p className="text-sm tracking-wider text-gray-700 dark:text-gray-300">28.17&deg;</p>
+          <p className="text-sm tracking-wider text-gray-700 dark:text-gray-300">Wednesday 22, Oct</p>
         </li>
         <li className="flex justify-between gap-4 hover:bg-gray-100 dark:hover:bg-gray-800 p-2 cursor-pointer">
           <img src="" alt="" />
-          <p>28.17&deg;</p>
-          <p>Wednesday 22, Oct</p>
+          <p className="text-sm tracking-wider text-gray-700 dark:text-gray-300">28.17&deg;</p>
+          <p className="text-sm tracking-wider text-gray-700 dark:text-gray-300">Wednesday 22, Oct</p>
         </li>
         <li className="flex justify-between gap-4 hover:bg-gray-100 dark:hover:bg-gray-800 p-2 cursor-pointer">
           <img src="" alt="" />
-          <p>28.17&deg;</p>
-          <p>Wednesday 22, Oct</p>
+          <p className="text-sm tracking-wider text-gray-700 dark:text-gray-300">28.17&deg;</p>
+          <p className="text-sm tracking-wider text-gray-700 dark:text-gray-300">Wednesday 22, Oct</p>
         </li>
       </ul>
     </div>
