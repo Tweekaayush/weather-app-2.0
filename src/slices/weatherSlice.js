@@ -5,7 +5,8 @@ const initialState = {
   loading: false,
   data: {
     currentWeather: {},
-    forcast: [],
+    dayForecast: [],
+    hourlyForecast: [],
     pollutionDetails: [],
   },
   error: "",
@@ -34,11 +35,24 @@ export const getForecast = createAsyncThunk(
     try {
       const { lat, lon } = payload;
       const res = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${
-          import.meta.env.API_KEY
+        `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${
+          import.meta.env.VITE_API_KEY
         }&units=metric`
       );
-      return res.data;
+
+
+      const dayForecast = []
+      const hourlyForecast = []
+
+      for(let i = 7; i<res.data.list.length; i+=8){
+          dayForecast.push(res.data.list[i])
+      }
+
+      for(let i = 0; i<8; i+=1){
+          hourlyForecast.push(res.data.list[i])
+      }
+
+      return {dayForecast, hourlyForecast};
     } catch (error) {
       return rejectWithValue(error.response.data.message);
     }
@@ -51,7 +65,7 @@ export const getAirPollutionDetails = createAsyncThunk(
       const { lat, lon } = payload;
       const res = await axios.get(
         `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${
-          import.meta.env.API_KEY
+          import.meta.env.VITE_API_KEY
         }&units=metric`
       );
       return res.data;
@@ -71,7 +85,7 @@ const weatherSlice = createSlice({
     });
     builder.addCase(getCurrentWeather.fulfilled, (state, action) => {
       state.loading = false;
-      state.currentWeather = action.payload;
+      state.data.currentWeather = action.payload;
     });
     builder.addCase(getCurrentWeather.rejected, (state, action) => {
       state.loading = false;
@@ -82,7 +96,8 @@ const weatherSlice = createSlice({
     });
     builder.addCase(getForecast.fulfilled, (state, action) => {
       state.loading = false;
-      state.forecast = action.payload.list;
+      state.data.dayForecast = action.payload.dayForecast;
+      state.data.hourlyForecast = action.payload.hourlyForecast;
     });
     builder.addCase(getForecast.rejected, (state, action) => {
       state.loading = false;
@@ -93,7 +108,7 @@ const weatherSlice = createSlice({
     });
     builder.addCase(getAirPollutionDetails.fulfilled, (state, action) => {
       state.loading = false;
-      state.pollutionDetails = action.payload.list;
+      state.data.pollutionDetails = action.payload.list;
     });
     builder.addCase(getAirPollutionDetails.rejected, (state, action) => {
       state.loading = false;
