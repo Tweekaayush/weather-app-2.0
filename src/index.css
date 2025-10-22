@@ -1,10 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --font-montserrat: "Montserrat", sans-serif;
+  --font-quicksand: "Quicksand", sans-serif;
 }
 
 @layer base {
@@ -49,9 +49,13 @@
     @apply text-gray-800 dark:text-gray-200 tracking-wider capitalize;
   }
 
+  /* card */
+
   .card {
     @apply border bg-white dark:bg-white/[0.03] border-gray-200 dark:border-gray-800 p-4 rounded-lg;
   }
+
+  /* svg */
 
   .icon {
     @apply w-5 h-5 text-gray-800 dark:text-gray-200;

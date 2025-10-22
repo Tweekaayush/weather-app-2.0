@@ -38,20 +38,20 @@ const Navbar = () => {
           <button
             onClick={() => setOpen(true)}
             ref={ref}
-            className="block md:hidden border-2 border-gray-200 dark:border-gray-800 hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200 p-2.5 rounded-full cursor-pointer"
+            className="block md:hidden border border-gray-200 dark:border-gray-800 hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200 p-2.5 rounded-full cursor-pointer"
           >
             <Search className="w-5 h-5" />
           </button>
           <button
             onClick={handleClick}
-            className="border-2 border-gray-200 dark:border-gray-800 hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200 p-2.5 rounded-full cursor-pointer"
+            className="border border-gray-200 dark:border-gray-800 hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200 p-2.5 rounded-full cursor-pointer"
           >
             <Sun className="w-5 h-5 hidden dark:block" />
             <Moon className="w-5 h-5 block dark:hidden" />
           </button>
           <button
             onClick={() => dispatch(getMyLocation())}
-            className="border-2 border-gray-200 dark:border-gray-800 hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200 p-2.5 rounded-full cursor-pointer"
+            className="border border-gray-200 dark:border-gray-800 hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200 p-2.5 rounded-full cursor-pointer"
           >
             <LocateFixed className="w-5 h-5" />
           </button>

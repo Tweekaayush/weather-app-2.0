@@ -21,7 +21,7 @@ const SearchBox = ({ open, setOpen, buttonRef }) => {
     if (keyCode === 40) {
       setActive((prev) => (prev + 1) % 5);
     } else if (keyCode === 38) {
-      setActive((prev) => (prev - 1) % 5);
+      setActive((prev) => (prev <= 0 ? 4 : prev - 1));
     } else if (keyCode === 13) {
       dispatch(
         setLocation({ lat: placeList[active].lat, lon: placeList[active].lon })
@@ -32,7 +32,12 @@ const SearchBox = ({ open, setOpen, buttonRef }) => {
   };
 
   const handleClickOutside = (e) => {
-    if (buttonRef.current && ref.current && !ref.current.contains(e.target)) {
+    if (
+      buttonRef.current &&
+      !buttonRef.current.contains(e.target) &&
+      ref.current &&
+      !ref.current.contains(e.target)
+    ) {
       setOpen(false);
     }
   };
@@ -50,7 +55,15 @@ const SearchBox = ({ open, setOpen, buttonRef }) => {
   useEffect(() => {
     window.addEventListener("click", handleClickOutside);
     return () => window.removeEventListener("click", handleClickOutside);
-  }, []);
+  }, [handleClickOutside]);
+
+  useEffect(() => {
+    if (window.screen.width < 768 && open) {
+      document.body.classList.add("overflow-hidden");
+    } else {
+      document.body.classList.remove("overflow-hidden");
+    }
+  }, [open]);
 
   return (
     <div
@@ -59,7 +72,7 @@ const SearchBox = ({ open, setOpen, buttonRef }) => {
       } md:block fixed w-full bg-white dark:bg-gray-900 top-0 left-0 h-screen md:relative md:w-[400px] md:h-fit`}
       ref={ref}
     >
-      <div className="flex items-center border px-4  py-4 md:py-2 rounded-lg border-gray-200 dark:border-gray-800">
+      <div className="flex items-center border-2 px-4  py-4 md:py-2 rounded-lg border-gray-200 dark:border-gray-800">
         <ArrowLeft
           className="block md:hidden w-5 h-5 text-gray-600 dark:text-gray-400 mr-4"
           onClick={() => setOpen(false)}
@@ -76,7 +89,7 @@ const SearchBox = ({ open, setOpen, buttonRef }) => {
         />
       </div>
       {placeList?.length !== 0 && open && (
-        <ul className="relative md:absolute md:top-10.5 md:left-0 md:w-full md:border md:border-gray-200 md:dark:border-gray-800 md:shadow-lg">
+        <ul className="relative md:absolute md:top-10.5 md:left-0 md:w-full md:border md:border-gray-200 md:dark:border-gray-800 md:shadow-lg md:rounded-lg md:overflow-hidden">
           {placeList?.map((place, i) => {
             return (
               <li
@@ -101,7 +114,9 @@ const SearchBox = ({ open, setOpen, buttonRef }) => {
                 <MapPin className="icon" />
                 <div>
                   <h1 className="heading-2">{place?.name}</h1>
-                  <p className="text-xs text-gray-500">{place?.state}, {place?.country}</p>
+                  <p className="text-xs text-gray-500">
+                    {place?.state}, {place?.country}
+                  </p>
                 </div>
               </li>
             );
