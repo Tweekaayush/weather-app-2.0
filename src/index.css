@@ -8,10 +8,25 @@
 }
 
 @layer base {
+  div::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  /* Track */
+  div::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+  }
+
+  /* Handle */
+  div::-webkit-scrollbar-thumb {
+    background: rgb(60, 0, 128);
+    border-radius: 10px;
+  }
 }
 
 @layer utilities {
-
   .container {
     @apply px-4 max-w-full w-full;
   }
@@ -38,8 +53,7 @@
     @apply border bg-white dark:bg-white/[0.03] border-gray-200 dark:border-gray-800 p-4 rounded-lg;
   }
 
-  .icon{
+  .icon {
     @apply w-5 h-5 text-gray-800 dark:text-gray-200;
   }
-
 }
