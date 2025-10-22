@@ -10,6 +10,7 @@ import {
   getCurrentWeather,
   getForecast,
   getLocationDetails,
+  getMyLocation,
 } from "./slices/weatherSlice";
 
 const App = () => {
@@ -24,6 +25,10 @@ const App = () => {
     dispatch(getAirPollutionDetails({ lat, lon }));
     dispatch(getForecast({ lat, lon }));
   }, [lat, lon]);
+
+  useEffect(() => {
+    dispatch(getMyLocation());
+  }, []);
   return (
     <Layout>
       <div className="container mt-4 py-4 grid grid-cols-12 gap-4 dark:bg-transparent bg-gray-100 min-h-screen">

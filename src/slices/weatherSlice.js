@@ -112,6 +112,24 @@ export const getLocationDetails = createAsyncThunk(
   }
 );
 
+export const getMyLocation = createAsyncThunk(
+  "getMyLocation",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const res = await axios.get("https://api.ipify.org/?format=json");
+      const resp = await axios.get(
+        `https://ipinfo.io/${res.data?.ip}?token=c177813f87d9fa`
+      );
+
+      const [latitude, longitude] = resp.data.loc.split(",");
+
+      return { lat: latitude, lon: longitude };
+    } catch (error) {
+      return rejectWithValue(error.response.data.message);
+    }
+  }
+);
+
 const weatherSlice = createSlice({
   name: "weather",
   initialState,
@@ -145,6 +163,18 @@ const weatherSlice = createSlice({
       state.data.location.country = action.payload[0].country;
     });
     builder.addCase(getLocationDetails.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    });
+    builder.addCase(getMyLocation.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(getMyLocation.fulfilled, (state, action) => {
+      state.loading = false;
+      state.data.lat = action.payload.lat;
+      state.data.lon = action.payload.lon;
+    });
+    builder.addCase(getMyLocation.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload;
     });
