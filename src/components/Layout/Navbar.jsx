@@ -14,12 +14,12 @@ const Navbar = () => {
 
   useEffect(() => {}, []);
   return (
-    <nav className="flex justify-center items-center h-16 w-full border-b-2 bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800">
+    <nav className="flex justify-center items-center h-16 w-full border-b bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800">
       <div className="container flex justify-between items-center">
         <a href="/" className="text-3xl text-700 dark:text-gray-300">
           Weatherly
         </a>
-        <div className="flex items-center border-2 px-4 py-2 rounded-lg border-gray-200 dark:border-gray-800">
+        <div className="flex items-center border px-4 py-2 rounded-lg border-gray-200 dark:border-gray-800">
           <Search className="w-5 h-5 text-gray-600 dark:text-gray-400 mr-4" />
           <input
             type="text"

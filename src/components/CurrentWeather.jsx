@@ -28,17 +28,17 @@ const CurrentWeather = () => {
         </div>
       </div>
       {currentWeather?.weather && (
-        <h3 className="pb-4 mb-5 text-gray-600 dark:text-gray-400 border-b border-gray-400 dark:border-gray-600">
+        <h3 className="pb-4 mb-5 text-sm text-gray-600 dark:text-gray-400 border-b border-gray-400 dark:border-gray-600">
           {currentWeather?.weather[0]?.description}
         </h3>
       )}
-      <div className="flex gap-4 mb-2 text-gray-800 dark:text-gray-200">
-        <Calendar className="w-5 h-5" />
-        <p>{getFullDate(currentWeather?.dt, currentWeather?.timezone)}</p>
+      <div className="flex gap-4 mb-3">
+        <Calendar className="icon" />
+        <h4 className="heading-2">{getFullDate(currentWeather?.dt, currentWeather?.timezone)}</h4>
       </div>
-      <div className="flex gap-4 text-gray-800 dark:text-gray-200">
-        <MapPin className="w-5 h-5" />
-        <p>New Delhi, IN</p>
+      <div className="flex gap-4">
+        <MapPin className="icon" />
+        <h4 className="heading-2">New Delhi, IN</h4>
       </div>
     </div>
   );
