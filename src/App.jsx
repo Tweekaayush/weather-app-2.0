@@ -4,21 +4,26 @@ import CurrentWeather from "./components/CurrentWeather";
 import WeatherHighlights from "./components/WeatherHighlights";
 import WeeklyForecast from "./components/WeeklyForecast";
 import HourlyForecast from "./components/HourlyForecast";
-import { useDispatch } from "react-redux";
-import { getAirPollutionDetails, getCurrentWeather, getForecast } from "./slices/weatherSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getAirPollutionDetails,
+  getCurrentWeather,
+  getForecast,
+  getLocationDetails,
+} from "./slices/weatherSlice";
 
 const App = () => {
+  const dispatch = useDispatch();
+  const {
+    data: { lat, lon },
+  } = useSelector((state) => state.weather);
 
-  const dispatch = useDispatch()
-
-  useEffect(()=>{
-    dispatch(getCurrentWeather({lat: 28.6139,
-        lon: 77.2088}))
-    dispatch(getAirPollutionDetails({lat: 28.6139,
-        lon: 77.2088}))
-    dispatch(getForecast({lat: 28.6139,
-        lon: 77.2088}))
-  }, [])
+  useEffect(() => {
+    dispatch(getLocationDetails({ lat, lon }));
+    dispatch(getCurrentWeather({ lat, lon }));
+    dispatch(getAirPollutionDetails({ lat, lon }));
+    dispatch(getForecast({ lat, lon }));
+  }, [lat, lon]);
   return (
     <Layout>
       <div className="container py-4 grid grid-cols-12 gap-4 dark:bg-transparent bg-gray-100 min-h-screen">

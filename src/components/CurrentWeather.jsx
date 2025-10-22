@@ -8,7 +8,7 @@ const CurrentWeather = () => {
   const dispatch = useDispatch();
   const {
     loading,
-    data: { currentWeather },
+    data: { currentWeather, location },
   } = useSelector((state) => state.weather);
   return (
     <div className="card">
@@ -34,11 +34,15 @@ const CurrentWeather = () => {
       )}
       <div className="flex gap-4 mb-3">
         <Calendar className="icon" />
-        <h4 className="heading-2">{getFullDate(currentWeather?.dt, currentWeather?.timezone)}</h4>
+        <h4 className="heading-2">
+          {getFullDate(currentWeather?.dt, currentWeather?.timezone)}
+        </h4>
       </div>
       <div className="flex gap-4">
         <MapPin className="icon" />
-        <h4 className="heading-2">New Delhi, IN</h4>
+        <h4 className="heading-2">
+          {location?.city}, {location?.country}
+        </h4>
       </div>
     </div>
   );
