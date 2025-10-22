@@ -22,7 +22,7 @@ const WeeklyForecast = () => {
                 alt={day?.weather[0]?.description}
               />
               <h4 className="heading-2">
-                {day?.main?.temp}&deg;<sup>c</sup>
+                {day?.main?.temp}&deg;
               </h4>
               <h4 className="heading-2">
                 {getFullDate(day?.dt, currentWeather?.timezone)}

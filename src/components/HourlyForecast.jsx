@@ -24,7 +24,7 @@ const HourlyForecast = () => {
                   alt="smoke"
                 />
                 <h4 className="heading-4">
-                  29.65&deg;<sup>c</sup>
+                  29.65&deg;
                 </h4>
               </li>
             );
@@ -43,7 +43,7 @@ const HourlyForecast = () => {
                   style={{transform: `rotate(${data?.wind?.deg-180}deg)`}}
                 />
                 <h4 className="heading-4">
-                  29.65&deg;<sup>c</sup>
+                  29.65&deg;
                 </h4>
               </li>
             );

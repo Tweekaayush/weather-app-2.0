@@ -15,7 +15,7 @@ const CurrentWeather = () => {
       <h1 className="heading-1">Now</h1>
       <div className="flex mb-4 justify-between">
         <h2 className="text-6xl text-gray-700 dark:text-gray-200">
-          {currentWeather?.main?.temp}°<sup>c</sup>
+          {currentWeather?.main?.temp}°<sup className="text-4.5xl">c</sup>
         </h2>
         <div className="flex items-center justify-center">
           {currentWeather?.weather && (

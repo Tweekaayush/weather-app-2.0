@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { clearPlaceList, geo, setLocation } from "../slices/weatherSlice";
 import { ArrowLeft, MapPin, Search } from "lucide-react";
 
-const SearchBox = ({ open, setOpen }) => {
+const SearchBox = ({ open, setOpen, buttonRef }) => {
   const [search, setSearch] = useState("");
   const [active, setActive] = useState(-1);
 
@@ -26,12 +26,14 @@ const SearchBox = ({ open, setOpen }) => {
       dispatch(
         setLocation({ lat: placeList[active].lat, lon: placeList[active].lon })
       );
+      setOpen(false);
+      setSearch("");
     }
   };
 
   const handleClickOutside = (e) => {
-    if (ref.current && !ref.current.contains(e.target)) {
-      dispatch(clearPlaceList());
+    if (buttonRef.current && ref.current && !ref.current.contains(e.target)) {
+      setOpen(false);
     }
   };
 
@@ -44,15 +46,6 @@ const SearchBox = ({ open, setOpen }) => {
     const timeout = setTimeout(searchPlace, 1000);
     return () => clearTimeout(timeout);
   }, [searchPlace]);
-
-  useEffect(() => {
-    if (placeList?.length) {
-      setOpen(true);
-    } else {
-      setOpen(false);
-      setSearch("");
-    }
-  }, [placeList?.length]);
 
   useEffect(() => {
     window.addEventListener("click", handleClickOutside);
@@ -79,6 +72,7 @@ const SearchBox = ({ open, setOpen }) => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           onKeyDown={handleKeyDown}
+          onFocus={() => setOpen(true)}
         />
       </div>
       {placeList?.length !== 0 && open && (
@@ -88,14 +82,16 @@ const SearchBox = ({ open, setOpen }) => {
               <li
                 key={place?.lat}
                 onMouseEnter={() => setActive(i)}
-                onClick={() =>
+                onClick={() => [
                   dispatch(
                     setLocation({
                       lat: place.lat,
                       lon: place.lon,
                     })
-                  )
-                }
+                  ),
+                  setOpen(false),
+                  setSearch(""),
+                ]}
                 className={`${
                   active === i
                     ? "bg-gray-200 dark:bg-gray-700"
@@ -105,7 +101,7 @@ const SearchBox = ({ open, setOpen }) => {
                 <MapPin className="icon" />
                 <div>
                   <h1 className="heading-2">{place?.name}</h1>
-                  <p className="text-xs text-gray-500">{place?.country}</p>
+                  <p className="text-xs text-gray-500">{place?.state}, {place?.country}</p>
                 </div>
               </li>
             );
