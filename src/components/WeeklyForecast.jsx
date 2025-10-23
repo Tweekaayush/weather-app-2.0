@@ -8,7 +8,7 @@ const WeeklyForecast = () => {
   } = useSelector((state) => state.weather);
   return (
     <div className="card">
-      <h1 className="heading-1">5 Days Forecast</h1>
+      <h1 className="heading-1">Forecast</h1>
       <ul className="flex flex-col">
         {dayForecast?.map((day, i) => {
           return (
@@ -21,12 +21,12 @@ const WeeklyForecast = () => {
                 className="w-10 h-10"
                 alt={day?.weather[0]?.description}
               />
-              <h4 className="heading-2">
+              <p className="body-text">
                 {day?.main?.temp}&deg;
-              </h4>
-              <h4 className="heading-2">
+              </p>
+              <p className="body-text">
                 {getFullDate(day?.dt, currentWeather?.timezone)}
-              </h4>
+              </p>
             </li>
           );
         })}

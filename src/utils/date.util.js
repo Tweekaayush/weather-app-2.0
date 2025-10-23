@@ -69,11 +69,16 @@ const calcMonth = (num) => {
   }
 };
 
+
+export const getDay = (dt, tz) =>{
+  return calcDay(new Date((dt + tz) * 1000).getUTCDay())
+}
+
 export const getFullDate = (dt, tz) => {
   const d = new Date((dt + tz)*1000);
-  let day = calcDay(d.getDay(dt, tz));
-  const date = d.getDate(dt, tz);
-  let month = calcMonth(d.getMonth(dt, tz));
+  let day = calcDay(d.getUTCDay());
+  const date = d.getUTCDate();
+  let month = calcMonth(d.getUTCMonth());
 
   return `${day} ${date < 10 ? "0" : ""}${date}, ${month}`;
 };

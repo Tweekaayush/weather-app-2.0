@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
@@ -34,19 +34,22 @@
   /* Headings */
 
   .heading-1 {
-    @apply text-xl font-bold tracking-wide mb-4 text-gray-700 dark:text-gray-300;
+    @apply text-xl font-semibold tracking-wide mb-4 text-gray-700 dark:text-gray-300 capitalize;
   }
 
-  .heading-2 {
-    @apply text-gray-800 dark:text-gray-200 tracking-wider text-sm capitalize;
+  .heading-2{
+    @apply  text-sm font-medium tracking-wide text-gray-700 dark:text-gray-300 capitalize;
   }
 
-  .heading-3 {
-    @apply text-xl font-semibold tracking-wide text-gray-700 dark:text-gray-300;
+
+  /* body-text */
+
+  .body-text{
+    @apply text-sm text-gray-700 dark:text-gray-300;
   }
 
-  .heading-4 {
-    @apply text-gray-800 dark:text-gray-200 tracking-wider capitalize;
+  .body-text-2{
+    @apply text-3xl text-gray-700 dark:text-gray-200;
   }
 
   /* card */
@@ -59,5 +62,11 @@
 
   .icon {
     @apply w-5 h-5 text-gray-800 dark:text-gray-200;
+  }
+
+  /* sub */
+
+  .sub{
+    @apply text-gray-600 dark:text-gray-400 ml-1;
   }
 }
