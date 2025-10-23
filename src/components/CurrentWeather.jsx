@@ -21,7 +21,7 @@ const CurrentWeather = () => {
           <p className="text-gray-600 dark:text-gray-400 mb-12">23 Oct, 2025</p>
           <div className="flex">
             <h1 className="text-5xl font-medium text-gray-700 dark:text-gray-200 mb-1">
-              26.34
+              {currentWeather?.main?.temp}
             </h1>
             <span className="text-gray-700 dark:text-gray-300 text-3xl font-black ml-1">
               &deg;C
