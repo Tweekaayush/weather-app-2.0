@@ -22,23 +22,23 @@ const WeatherHighlights = () => {
     switch (aqi) {
       case 1:
         setAirQualityIndex("Good");
-        setCls("green");
+        setCls("bg-green-600");
         break;
       case 2:
         setAirQualityIndex("Fair");
-        setCls("teal");
+        setCls("bg-teal-600");
         break;
       case 3:
         setAirQualityIndex("Moderate");
-        setCls("yellow");
+        setCls("bg-yellow-600");
         break;
       case 4:
         setAirQualityIndex("Poor");
-        setCls("orange");
+        setCls("bg-orange-600");
         break;
       case 5:
         setAirQualityIndex("Very Poor");
-        setCls("red");
+        setCls("bg-red-600");
         break;
       default:
         setAirQualityIndex("Good");
@@ -57,7 +57,7 @@ const WeatherHighlights = () => {
           <div className="flex justify-between items-center mb-4">
             <h5 className="heading-2">Air Quality Index</h5>
             <p
-              className={`bg-${cls}-500 text-white font-bold text-xs px-4 py-1 rounded-3xl`}
+              className={`${cls} text-white font-bold text-xs px-4 py-1 rounded-3xl`}
             >
               {airQualityIndex}
             </p>

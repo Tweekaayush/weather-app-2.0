@@ -27,17 +27,25 @@ const CurrentWeather = () => {
               &deg;C
             </span>
           </div>
-          <p className="text-gray-600 dark:text-gray-400">Feels like {currentWeather?.main?.feels_like}&deg;</p>
+          <p className="text-gray-600 dark:text-gray-400">
+            Feels like {currentWeather?.main?.feels_like}&deg;
+          </p>
         </div>
         <div className="flex-1 flex flex-col items-center">
-          <div>
-             <img
-              src={`assets/images/weather_icons/${currentWeather?.weather[0]?.icon}.png`}
-              alt={currentWeather?.weather[0]?.description}
-              className="w-20 h-20 object-contain"
-            />
-          </div>
-          <p className="text-2xl text-gray-600 dark:text-gray-400 capitalize mb-4">{currentWeather?.weather[0]?.description}</p>
+          {currentWeather?.weather && (
+            <div>
+              <img
+                src={`assets/images/weather_icons/${currentWeather?.weather[0]?.icon}.png`}
+                alt={currentWeather?.weather[0]?.description}
+                className="w-20 h-20 object-contain"
+              />
+            </div>
+          )}
+          {currentWeather?.weather && (
+            <p className="text-2xl text-gray-600 dark:text-gray-400 capitalize mb-4">
+              {currentWeather?.weather[0]?.description}
+            </p>
+          )}
           <div className="flex items-center gap-2">
             <p className="body-text">
               <span className="font-bold mr-1">High:</span>
@@ -52,41 +60,10 @@ const CurrentWeather = () => {
       </div>
       <div className="flex items-center gap-2 border-t py-4 border-gray-300 dark:border-gray-700">
         <MapPin className="icon" />
-        <p className="body-text">{location?.city}, {location?.country}</p>
-      </div>
-
-      {/* <h1 className="heading-1">Now</h1>
-      <div className="flex mb-4 justify-between">
-        <h2 className="text-6xl text-gray-700 dark:text-gray-200">
-          {currentWeather?.main?.temp}°<sup className="text-4.5xl">c</sup>
-        </h2>
-        <div className="flex items-center justify-center">
-          {currentWeather?.weather && (
-            <img
-              src={`assets/images/weather_icons/${currentWeather?.weather[0]?.icon}.png`}
-              alt="smoke"
-              className="w-16 h-16 object-contain"
-            />
-          )}
-        </div>
-      </div>
-      {currentWeather?.weather && (
-        <h3 className="pb-4 mb-5 text-sm text-gray-600 dark:text-gray-400 border-b border-gray-400 dark:border-gray-600">
-          {currentWeather?.weather[0]?.description}
-        </h3>
-      )}
-      <div className="flex gap-4 mb-3">
-        <Calendar className="icon" />
-        <h4 className="heading-2">
-          {getFullDate(currentWeather?.dt, currentWeather?.timezone)}
-        </h4>
-      </div>
-      <div className="flex gap-4">
-        <MapPin className="icon" />
-        <h4 className="heading-2">
+        <p className="body-text">
           {location?.city}, {location?.country}
-        </h4>
-      </div> */}
+        </p>
+      </div>
     </div>
   );
 };
