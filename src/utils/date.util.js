@@ -83,6 +83,15 @@ export const getFullDate = (dt, tz) => {
   return `${day} ${date < 10 ? "0" : ""}${date}, ${month}`;
 };
 
+export const getFullDateWYear = (dt, tz) => {
+  const d = new Date((dt + tz)*1000);
+  const year = d.getUTCFullYear()
+  const date = d.getUTCDate();
+  let month = calcMonth(d.getUTCMonth());
+
+  return `${date < 10 ? "0" : ""}${date} ${month}, ${year}`;
+};
+
 export const getTime = (time, tz) => {
   const date = new Date((time + tz) * 1000);
   const hours = date.getUTCHours();
