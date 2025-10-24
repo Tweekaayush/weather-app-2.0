@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { LocateFixed, Moon, Search, Sun } from "lucide-react";
 import SearchBox from "../SearchBox";
 import { useDispatch } from "react-redux";
-import { getMyLocation } from "../../slices/location.slice";
+import { getMyLocation } from "../../slices/weather.slice";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);

@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { geo, setLocation } from "../slices/location.slice";
-import { ArrowLeft, MapPin, Search } from "lucide-react";
+import { geo } from "../slices/location.slice";
+import { setLocation } from "../slices/weather.slice";
+import { ArrowLeft, LoaderCircle, MapPin, Search } from "lucide-react";
 
 const SearchBox = ({ open, setOpen, buttonRef }) => {
   const [search, setSearch] = useState("");
@@ -12,6 +13,7 @@ const SearchBox = ({ open, setOpen, buttonRef }) => {
   const dispatch = useDispatch();
 
   const {
+    loading,
     data: { placeList },
   } = useSelector((state) => state.location);
 
@@ -43,8 +45,10 @@ const SearchBox = ({ open, setOpen, buttonRef }) => {
   };
 
   const searchPlace = useCallback(() => {
-    dispatch(geo(search));
-    setActive(-1);
+    if (search) {
+      dispatch(geo(search));
+      setActive(-1);
+    }
   }, [search]);
 
   useEffect(() => {
@@ -87,6 +91,9 @@ const SearchBox = ({ open, setOpen, buttonRef }) => {
           onKeyDown={handleKeyDown}
           onFocus={() => setOpen(true)}
         />
+        {loading && (
+          <LoaderCircle className="text-gray-400 dark:text-gray-500 animate-spin" />
+        )}
       </div>
       {placeList?.length !== 0 && open && (
         <ul className="relative md:absolute md:top-10.5 md:left-0 md:w-full md:border md:border-gray-200 md:dark:border-gray-800 md:shadow-lg md:rounded-lg md:overflow-hidden">

@@ -5,6 +5,9 @@ import axios from "axios";
 const initialState = {
   loading: false,
   data: {
+    lat: 28.6139,
+    lon: 77.2088,
+    location: { city: "", country: "" },
     currentWeather: {},
     dayForecast: [],
     hourlyForecast: [],
@@ -18,7 +21,7 @@ export const getCurrentWeather = createAsyncThunk(
   async (payload, { rejectWithValue, dispatch }) => {
     try {
       const { lat, lon } = payload;
-    
+
       const res = await axios.get(
         `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${
           import.meta.env.VITE_API_KEY
@@ -77,10 +80,75 @@ export const getAirPollutionDetails = createAsyncThunk(
   }
 );
 
+export const getLocationDetails = createAsyncThunk(
+  "getLocationDetails",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const { lat, lon } = payload;
+      const res = await axios.get(
+        `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&appid=${
+          import.meta.env.VITE_API_KEY
+        }`
+      );
+      return res.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data.message);
+    }
+  }
+);
+
+export const getMyLocation = createAsyncThunk(
+  "getMyLocation",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const res = await axios.get("https://api.ipify.org/?format=json");
+      const resp = await axios.get(
+        `https://ipinfo.io/${res.data?.ip}?token=c177813f87d9fa`
+      );
+
+      const [latitude, longitude] = resp.data.loc.split(",");
+
+      return { lat: latitude, lon: longitude };
+    } catch (error) {
+      return rejectWithValue(error.response.data.message);
+    }
+  }
+);
+
 const weatherSlice = createSlice({
   name: "weather",
   initialState,
+  reducers: {
+    setLocation: (state, action) => {
+      state.data.lat = action.payload.lat;
+      state.data.lon = action.payload.lon;
+    },
+  },
   extraReducers: (builder) => {
+    builder.addCase(getMyLocation.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(getMyLocation.fulfilled, (state, action) => {
+      state.loading = false;
+      state.data.lat = action.payload.lat;
+      state.data.lon = action.payload.lon;
+    });
+    builder.addCase(getMyLocation.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    });
+    builder.addCase(getLocationDetails.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(getLocationDetails.fulfilled, (state, action) => {
+      state.loading = false;
+      state.data.location.city = action.payload[0].name;
+      state.data.location.country = action.payload[0].country;
+    });
+    builder.addCase(getLocationDetails.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    });
     builder.addCase(getCurrentWeather.pending, (state, action) => {
       state.loading = true;
     });
@@ -117,5 +185,7 @@ const weatherSlice = createSlice({
     });
   },
 });
+
+export const { setLocation } = weatherSlice.actions;
 
 export default weatherSlice.reducer;

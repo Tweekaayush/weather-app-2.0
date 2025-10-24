@@ -7,13 +7,9 @@ const CurrentWeather = () => {
   const dispatch = useDispatch();
   const {
     loading,
-    data: { currentWeather},
+    data: { currentWeather, location},
   } = useSelector((state) => state.weather);
 
-  const {
-    loading: locationLoading,
-    data: {location},
-  } = useSelector((state) => state.location);
   return (
     <div className="card">
       <h4 className="heading-1">Now</h4>
