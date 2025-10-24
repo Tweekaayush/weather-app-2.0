@@ -9,15 +9,14 @@ import {
   getAirPollutionDetails,
   getCurrentWeather,
   getForecast,
-  getLocationDetails,
-  getMyLocation,
-} from "./slices/weatherSlice";
+} from "./slices/weather.slice";
+import { getMyLocation, getLocationDetails } from "./slices/location.slice";
 
 const App = () => {
   const dispatch = useDispatch();
   const {
     data: { lat, lon },
-  } = useSelector((state) => state.weather);
+  } = useSelector((state) => state.location);
 
   useEffect(() => {
     dispatch(getLocationDetails({ lat, lon }));

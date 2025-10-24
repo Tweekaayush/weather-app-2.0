@@ -1,16 +1,19 @@
-import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCurrentWeather } from "../slices/weatherSlice";
-import { Calendar, MapPin } from "lucide-react";
-import { getDay, getFullDate, getFullDateWYear } from "../utils/date.util";
+import { MapPin } from "lucide-react";
+import { getDay, getFullDateWYear } from "../utils/date.util";
 import Skeleton from "./Skeleton";
 
 const CurrentWeather = () => {
   const dispatch = useDispatch();
   const {
     loading,
-    data: { currentWeather, location },
+    data: { currentWeather},
   } = useSelector((state) => state.weather);
+
+  const {
+    loading: locationLoading,
+    data: {location},
+  } = useSelector((state) => state.location);
   return (
     <div className="card">
       <h4 className="heading-1">Now</h4>

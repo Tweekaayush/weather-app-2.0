@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { clearPlaceList, geo, setLocation } from "../slices/weatherSlice";
+import { geo, setLocation } from "../slices/location.slice";
 import { ArrowLeft, MapPin, Search } from "lucide-react";
 
 const SearchBox = ({ open, setOpen, buttonRef }) => {
@@ -13,7 +13,7 @@ const SearchBox = ({ open, setOpen, buttonRef }) => {
 
   const {
     data: { placeList },
-  } = useSelector((state) => state.weather);
+  } = useSelector((state) => state.location);
 
   const handleKeyDown = (e) => {
     if (placeList.length === 0) return;

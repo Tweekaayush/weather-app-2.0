@@ -1,8 +1,8 @@
+import { useState, useRef, useEffect } from "react";
 import { LocateFixed, Moon, Search, Sun } from "lucide-react";
 import SearchBox from "../SearchBox";
-import { useState, useRef, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { getMyLocation } from "../../slices/weatherSlice";
+import { getMyLocation } from "../../slices/location.slice";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -45,6 +45,7 @@ const Navbar = () => {
           <button
             onClick={handleClick}
             className="border border-gray-200 dark:border-gray-800 hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200 p-2.5 rounded-full cursor-pointer"
+            title="Toggle Dark Mode"
           >
             <Sun className="w-5 h-5 hidden dark:block" />
             <Moon className="w-5 h-5 block dark:hidden" />
@@ -52,6 +53,7 @@ const Navbar = () => {
           <button
             onClick={() => dispatch(getMyLocation())}
             className="border border-gray-200 dark:border-gray-800 hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200 p-2.5 rounded-full cursor-pointer"
+            title="Get My Location"
           >
             <LocateFixed className="w-5 h-5" />
           </button>
