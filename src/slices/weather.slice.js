@@ -1,9 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { clearPlaceList } from "./location.slice";
 import axios from "axios";
 
 const initialState = {
-  loading: false,
+  loading: {
+    isGeoLoading: false,
+    isWeatherLoading: false,
+  },
   data: {
     lat: 28.6139,
     lon: 77.2088,
@@ -12,9 +14,26 @@ const initialState = {
     dayForecast: [],
     hourlyForecast: [],
     pollutionDetails: [],
+    placeList: [],
   },
   error: "",
 };
+
+export const geo = createAsyncThunk(
+  "geo",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const res = await axios.get(
+        `https://api.openweathermap.org/geo/1.0/direct?q=${payload}&limit=5&appid=${
+          import.meta.env.VITE_API_KEY
+        }&units=metric`
+      );
+      return res.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data.message);
+    }
+  }
+);
 
 export const getCurrentWeather = createAsyncThunk(
   "getCurrentWeather",
@@ -123,69 +142,83 @@ const weatherSlice = createSlice({
       state.data.lat = action.payload.lat;
       state.data.lon = action.payload.lon;
     },
+    clearPlaceList: (state, action) => {
+      state.data.placeList = [];
+    },
   },
   extraReducers: (builder) => {
+    builder.addCase(geo.pending, (state, action) => {
+      state.loading.isGeoLoading = true;
+    });
+    builder.addCase(geo.fulfilled, (state, action) => {
+      state.loading.isGeoLoading = false;
+      state.data.placeList = action.payload;
+    });
+    builder.addCase(geo.rejected, (state, action) => {
+      state.loading.isGeoLoading = false;
+      state.error = action.payload;
+    });
     builder.addCase(getMyLocation.pending, (state, action) => {
-      state.loading = true;
+      state.loading.isWeatherLoading = true;
     });
     builder.addCase(getMyLocation.fulfilled, (state, action) => {
-      state.loading = false;
+      state.loading.isWeatherLoading = false;
       state.data.lat = action.payload.lat;
       state.data.lon = action.payload.lon;
     });
     builder.addCase(getMyLocation.rejected, (state, action) => {
-      state.loading = false;
+      state.loading.isWeatherLoading = false;
       state.error = action.payload;
     });
     builder.addCase(getLocationDetails.pending, (state, action) => {
-      state.loading = true;
+      state.loading.isWeatherLoading = true;
     });
     builder.addCase(getLocationDetails.fulfilled, (state, action) => {
-      state.loading = false;
+      state.loading.isWeatherLoading = false;
       state.data.location.city = action.payload[0].name;
       state.data.location.country = action.payload[0].country;
     });
     builder.addCase(getLocationDetails.rejected, (state, action) => {
-      state.loading = false;
+      state.loading.isWeatherLoading = false;
       state.error = action.payload;
     });
     builder.addCase(getCurrentWeather.pending, (state, action) => {
-      state.loading = true;
+      state.loading.isWeatherLoading = true;
     });
     builder.addCase(getCurrentWeather.fulfilled, (state, action) => {
-      state.loading = false;
+      state.loading.isWeatherLoading = false;
       state.data.currentWeather = action.payload;
     });
     builder.addCase(getCurrentWeather.rejected, (state, action) => {
-      state.loading = false;
+      state.loading.isWeatherLoading = false;
       state.error = action.payload;
     });
     builder.addCase(getForecast.pending, (state, action) => {
-      state.loading = true;
+      state.loading.isWeatherLoading = true;
     });
     builder.addCase(getForecast.fulfilled, (state, action) => {
-      state.loading = false;
+      state.loading.isWeatherLoading = false;
       state.data.dayForecast = action.payload.dayForecast;
       state.data.hourlyForecast = action.payload.hourlyForecast;
     });
     builder.addCase(getForecast.rejected, (state, action) => {
-      state.loading = false;
+      state.loading.isWeatherLoading = false;
       state.error = action.payload;
     });
     builder.addCase(getAirPollutionDetails.pending, (state, action) => {
-      state.loading = true;
+      state.loading.isWeatherLoading = true;
     });
     builder.addCase(getAirPollutionDetails.fulfilled, (state, action) => {
-      state.loading = false;
+      state.loading.isWeatherLoading = false;
       state.data.pollutionDetails = action.payload.list;
     });
     builder.addCase(getAirPollutionDetails.rejected, (state, action) => {
-      state.loading = false;
+      state.loading.isWeatherLoading= false;
       state.error = action.payload;
     });
   },
 });
 
-export const { setLocation } = weatherSlice.actions;
+export const { setLocation, clearPlaceList } = weatherSlice.actions;
 
 export default weatherSlice.reducer;

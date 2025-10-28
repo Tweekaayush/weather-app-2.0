@@ -6,8 +6,8 @@ import Skeleton from "./Skeleton";
 const CurrentWeather = () => {
   const dispatch = useDispatch();
   const {
-    loading,
-    data: { currentWeather, location},
+    loading: { isWeatherLoading },
+    data: { currentWeather, location },
   } = useSelector((state) => state.weather);
 
   return (
@@ -15,21 +15,21 @@ const CurrentWeather = () => {
       <h4 className="heading-1">Now</h4>
       <div className="flex items-end gap-4 mb-8">
         <div className="flex-1 flex flex-col items-start">
-          {!loading ? (
+          {!isWeatherLoading ? (
             <h2 className="text-3xl font-medium text-gray-700 dark:text-gray-200 mb-1">
               {getDay(currentWeather?.dt, currentWeather?.timezone)}
             </h2>
           ) : (
             <Skeleton cls="w-30 h-7 mb-1" />
           )}
-          {!loading ? (
+          {!isWeatherLoading ? (
             <p className="text-gray-600 dark:text-gray-400 mb-12">
               {getFullDateWYear(currentWeather?.dt, currentWeather?.timezone)}
             </p>
           ) : (
             <Skeleton cls="w-25 h-5 mb-12" />
           )}
-          {!loading ? (
+          {!isWeatherLoading ? (
             <div className="flex">
               <h1 className="text-5xl font-medium text-gray-700 dark:text-gray-200 mb-1">
                 {currentWeather?.main?.temp}
@@ -41,7 +41,7 @@ const CurrentWeather = () => {
           ) : (
             <Skeleton cls="w-35 h-12 mb-1" />
           )}
-          {!loading ? (
+          {!isWeatherLoading ? (
             <p className="text-gray-600 dark:text-gray-400">
               Feels like {currentWeather?.main?.feels_like}&deg;
             </p>
@@ -50,7 +50,7 @@ const CurrentWeather = () => {
           )}
         </div>
         <div className="flex-1 flex flex-col items-center">
-          {!loading && currentWeather?.weather ? (
+          {!isWeatherLoading && currentWeather?.weather ? (
             <div>
               <img
                 src={`assets/images/weather_icons/${currentWeather?.weather[0]?.icon}.png`}
@@ -61,14 +61,14 @@ const CurrentWeather = () => {
           ) : (
             <Skeleton cls="w-20 h-20 mb-2" />
           )}
-          {!loading && currentWeather?.weather ? (
+          {!isWeatherLoading && currentWeather?.weather ? (
             <p className="text-2xl text-gray-600 dark:text-gray-400 capitalize mb-4">
               {currentWeather?.weather[0]?.description}
             </p>
           ) : (
             <Skeleton cls="w-25 h-8 mb-4" />
           )}
-          {!loading ? (
+          {!isWeatherLoading ? (
             <div className="flex items-center gap-2">
               <p className="body-text">
                 <span className="font-bold mr-1">High:</span>
@@ -88,7 +88,7 @@ const CurrentWeather = () => {
         </div>
       </div>
       <div className="flex items-center gap-2 border-t py-4 border-gray-300 dark:border-gray-700">
-        {!loading ? (
+        {!isWeatherLoading ? (
           <>
             <MapPin className="icon" />
             <p className="body-text">

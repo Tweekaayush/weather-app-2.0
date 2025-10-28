@@ -5,7 +5,7 @@ import Skeleton from "./Skeleton";
 
 const HourlyForecast = () => {
   const {
-    loading,
+    loading: { isWeatherLoading },
     data: { hourlyForecast, currentWeather },
   } = useSelector((state) => state.weather);
 
@@ -14,7 +14,7 @@ const HourlyForecast = () => {
       <h1 className="heading-1">Today at</h1>
       <div className="flex flex-col gap-4 overflow-x-auto scrollbar-hide">
         <ul className="flex gap-4">
-          {!loading
+          {!isWeatherLoading
             ? hourlyForecast?.map((data, i) => {
                 return (
                   <li className="flex flex-col items-center min-w-38 card">
@@ -36,7 +36,7 @@ const HourlyForecast = () => {
         </ul>
 
         <ul className="flex gap-4 mb-4">
-          {!loading
+          {!isWeatherLoading
             ? hourlyForecast?.map((data, i) => {
                 return (
                   <li className="flex flex-col items-center min-w-38 card">

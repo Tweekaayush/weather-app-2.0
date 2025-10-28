@@ -16,7 +16,7 @@ const WeatherHighlights = () => {
   const [airQualityIndex, setAirQualityIndex] = useState("");
   const [cls, setCls] = useState("bg-green-500");
   const {
-    loading,
+    loading: { isWeatherLoading },
     data: { currentWeather, pollutionDetails },
   } = useSelector((state) => state.weather);
 
@@ -54,7 +54,7 @@ const WeatherHighlights = () => {
   return (
     <div className="card">
       <h1 className="heading-1">Today's Highlights</h1>
-      {!loading ? (
+      {!isWeatherLoading ? (
         <div className="grid grid-cols-12 gap-4">
           <div className="col-span-12 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
             <div className="flex justify-between items-center mb-4">
@@ -176,12 +176,12 @@ const WeatherHighlights = () => {
         </div>
       ) : (
         <div className="grid grid-cols-12 gap-4">
-          <Skeleton cls='col-span-12 h-30'/>
-          <Skeleton cls='col-span-12 lg:row-span-2 md:col-span-6'/>
-          <Skeleton cls='col-span-6 lg:col-span-3 h-20'/>
-          <Skeleton cls='col-span-6 lg:col-span-3 h-20'/>
-          <Skeleton cls='col-span-6 lg:col-span-3 h-20'/>
-          <Skeleton cls='col-span-6 lg:col-span-3 h-20'/>
+          <Skeleton cls="col-span-12 h-30" />
+          <Skeleton cls="col-span-12 lg:row-span-2 md:col-span-6" />
+          <Skeleton cls="col-span-6 lg:col-span-3 h-20" />
+          <Skeleton cls="col-span-6 lg:col-span-3 h-20" />
+          <Skeleton cls="col-span-6 lg:col-span-3 h-20" />
+          <Skeleton cls="col-span-6 lg:col-span-3 h-20" />
         </div>
       )}
     </div>

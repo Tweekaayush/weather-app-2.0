@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { geo } from "../slices/location.slice";
-import { setLocation } from "../slices/weather.slice";
+import { setLocation, geo } from "../slices/weather.slice";
 import { ArrowLeft, LoaderCircle, MapPin, Search } from "lucide-react";
 
 const SearchBox = ({ open, setOpen, buttonRef }) => {
@@ -13,9 +12,9 @@ const SearchBox = ({ open, setOpen, buttonRef }) => {
   const dispatch = useDispatch();
 
   const {
-    loading,
+    loading:{isGeoLoading},
     data: { placeList },
-  } = useSelector((state) => state.location);
+  } = useSelector((state) => state.weather);
 
   const handleKeyDown = (e) => {
     if (placeList.length === 0) return;
@@ -91,7 +90,7 @@ const SearchBox = ({ open, setOpen, buttonRef }) => {
           onKeyDown={handleKeyDown}
           onFocus={() => setOpen(true)}
         />
-        {loading && (
+        {isGeoLoading && (
           <LoaderCircle className="text-gray-400 dark:text-gray-500 animate-spin" />
         )}
       </div>

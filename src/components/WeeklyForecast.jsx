@@ -5,14 +5,14 @@ import Skeleton from "./Skeleton";
 
 const WeeklyForecast = () => {
   const {
-    loading,
+    loading: { isWeatherLoading },
     data: { dayForecast, currentWeather },
   } = useSelector((state) => state.weather);
   return (
     <div className="card">
       <h1 className="heading-1">Forecast</h1>
       <ul className="flex flex-col">
-        {!loading
+        {!isWeatherLoading
           ? dayForecast?.map((day, i) => {
               return (
                 <li
